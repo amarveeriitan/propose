@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Just Us Two ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #e2e8f0;
+            --accent: #f43f5e;
+            --gold: #fbbf24;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            color: var(--text-main);
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* --- BACKGROUND STARS --- */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* --- CONTAINER --- */
+        .phone-frame {
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            max-height: 850px;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* --- SLIDES --- */
+        .slide {
+            position: absolute;
+            width: 90%;
+            height: auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .slide.exit {
+            opacity: 0;
+            transform: translateY(-50px) scale(0.9);
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #f43f5e, #fda4af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        /* --- IMAGES --- */
+        .photo-stack {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .photo {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 180px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 4px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.5s ease;
+        }
+
+        /* Here we use the simple filenames 1.jpg, 2.jpg, 3.jpg */
+        .p1 { transform: translate(-50%, -50%) rotate(-5deg); z-index: 1; }
+        .p2 { transform: translate(-50%, -50%) rotate(5deg); z-index: 2; }
+        .p3 { transform: translate(-50%, -50%) rotate(0deg) scale(1.1); z-index: 3; }
+
+        /* --- INTERACTIVE ELEMENTS --- */
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn:active { transform: scale(0.95); }
+
+        /* Fingerprint Scanner Style */
+        .fingerprint-zone {
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            position: relative;
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(244, 63, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+        }
+
+        /* --- PROPOSAL BUTTONS --- */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            position: relative;
+            height: 60px;
+        }
+
+        .btn-no {
+            background: #475569;
+            position: absolute;
+            transition: all 0.1s ease;
+        }
+
+        /* --- HEART ANIMATION --- */
+        .heart-float {
+            position: absolute;
+            color: var(--accent);
+            font-size: 20px;
+            animation: floatUp 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            to { transform: translateY(-100vh); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="phone-frame">
+        
+        <div class="slide active" id="slide1">
+            <h1>Hey Icy...</h1>
+            <p>The world is noisy, but I want a quiet moment just with you.</p>
+            <p>Put your headphones on, take a deep breath.</p>
+            <p>Are you ready?</p>
+            <button class="btn" onclick="nextSlide(2)">I'm Ready ❤️</button>
+        </div>
+
+        <div class="slide" id="slide2">
+            <h1>Close the Distance</h1>
+            <p>Even though miles separate us, our hearts beat in the same rhythm.</p>
+            <p><strong>Press and hold</strong> the fingerprint below to connect our worlds.</p>
+            
+            <div class="fingerprint-zone" id="fingerprint" onmousedown="startConnect()" ontouchstart="startConnect()" onmouseup="endConnect()" ontouchend="endConnect()">
+                👆
+            </div>
+            <p id="connectText" style="font-size: 0.9rem; opacity: 0.7;">Waiting for touch...</p>
+        </div>
+
+        <div class="slide" id="slide3">
+            <h1>My Favorite View</h1>
+            <div class="photo-stack">
+                <img src="1.jpg" class="photo p1" alt="Icy Pink Dress">
+                <img src="2.jpg" class="photo p2" alt="Icy Glasses">
+                <img src="3.jpg" class="photo p3" alt="Icy Sunlight">
+            </div>
+            <p>From your smile in the sunlight to your focused doctor look...</p>
+            <p>Every version of you is the one I fall in love with.</p>
+            <button class="btn" onclick="nextSlide(4)">Next ➡️</button>
+        </div>
+
+        <div class="slide" id="slide4">
+            <h1>November 2026</h1>
+            <p>I close my eyes and I can see it.</p>
+            <p>The moment the distance hits <strong>zero</strong>.</p>
+            <p>No more video calls. Just us. Real. Forever.</p>
+            <p>But until then...</p>
+            <button class="btn" onclick="nextSlide(5)">I have a question...</button>
+        </div>
+
+        <div class="slide" id="slide5">
+            <h1>Will You Be Mine?</h1>
+            <p>Shreyosi, will you be my Valentine, my partner, and my love forever?</p>
+            
+            <div class="btn-group">
+                <button class="btn" onclick="sheSaidYes()">YES! 💖</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveBtn()" ontouchstart="moveBtn()">No</button>
+            </div>
+        </div>
+
+        <div class="slide" id="slide6">
+            <h1 style="font-size: 3rem;">I Love You! 💖</h1>
+            <p>My heart is yours, today and always.</p>
+            <p>Happy Propose Day, Paglu loves you!</p>
+            <div style="font-size: 4rem;">💑</div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- STAR BACKGROUND GENERATOR ---
+        function createStars() {
+            const count = 100;
+            const body = document.querySelector('body');
+            for(let i=0; i<count; i++) {
+                let star = document.createElement('div');
+                star.className = 'star';
+                let xy = Math.random() * 100;
+                let duration = Math.random() * 2 + 1;
+                let size = Math.random() * 3;
+                
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.setProperty('--duration', duration + 's');
+                
+                body.appendChild(star);
+            }
+        }
+        createStars();
+
+        // --- SLIDE NAVIGATION ---
+        function nextSlide(slideNumber) {
+            document.querySelectorAll('.slide').forEach(s => {
+                s.classList.remove('active');
+                s.classList.add('exit');
+            });
+
+            setTimeout(() => {
+                const next = document.getElementById('slide' + slideNumber);
+                next.classList.remove('exit');
+                next.classList.add('active');
+            }, 300);
+        }
+
+        // --- FINGERPRINT LOGIC ---
+        let holdTimer;
+        const fingerprint = document.getElementById('fingerprint');
+        const connectText = document.getElementById('connectText');
+
+        function startConnect() {
+            fingerprint.style.transform = "scale(0.9)";
+            fingerprint.innerHTML = "❤️";
+            connectText.innerHTML = "Connecting hearts...";
+            
+            holdTimer = setTimeout(() => {
+                connectText.innerHTML = "Connected!";
+                fingerprint.style.background = "#f43f5e";
+                fingerprint.style.borderColor = "#f43f5e";
+                setTimeout(() => nextSlide(3), 800);
+            }, 1500); // 1.5 seconds hold
+        }
+
+        function endConnect() {
+            clearTimeout(holdTimer);
+            fingerprint.style.transform = "scale(1)";
+            fingerprint.innerHTML = "👆";
+            if(connectText.innerHTML !== "Connected!") {
+                connectText.innerHTML = "Keep holding...";
+            }
+        }
+
+        // --- RUNAWAY BUTTON ---
+        function moveBtn() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        // --- YES ANIMATION ---
+        function sheSaidYes() {
+            nextSlide(6);
+            setInterval(createHeart, 200);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-float');
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            heart.style.fontSize = Math.random() * 30 + 10 + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+    </script>
+</body>
+</html>
